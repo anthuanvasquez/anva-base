@@ -1,0 +1,25 @@
+{
+    "name": "anthuanvasquez/anva-base",
+    "description": "Anva Theme Base",
+    "keywords": ["wordpress"],
+    "homepage": "https://anthuanvasquez.net",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Anthuan Vásquez",
+            "email": "me@anthuanvasquez.net",
+            "homepage": "https://anthuanvasquez.net"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/anthuanvasquez/anva-base/issues"
+    },
+    "autoload": {
+        "classmap": ["framework/anva.php"]
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "2.*",
+        "phpmd/phpmd": "^2.6",
+        "sebastian/phpcpd": "^3.0"
+    },
+}

@@ -1,5 +1,21 @@
 <?php
+/**
+ * Advanced options.
+ *
+ * @package AnvaFramework
+ */
 
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Advanced options tab.
+ *
+ * @since  1.0.0
+ * @return array $advanced Options array.
+ */
 function anva_theme_options_advanced() {
 	$advanced = array(
 		'general' => array(
@@ -12,7 +28,7 @@ function anva_theme_options_advanced() {
 			),
 			'debug' => array(
 				'name' => null,
-				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Debug' ), esc_html__( 'Display debug information in the footer.', 'anva' ) ),
+				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Debug', 'anva' ), esc_html__( 'Display debug information in the footer.', 'anva' ) ),
 				'id' => 'debug',
 				'std' => '0',
 				'type' => 'checkbox',

@@ -2,13 +2,19 @@
 /**
  * Feature options.
  *
- * @package  AnvaFramework
+ * @package AnvaFramework
  */
 
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
- * Feature Tab Options.
+ * Feature options tab.
  *
- * @return  array $feature Options for feature tab,
+ * @since  1.0.0
+ * @return array $feature Options array,
  */
 function anva_theme_options_feature() {
 

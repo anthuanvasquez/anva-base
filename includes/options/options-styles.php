@@ -1,24 +1,20 @@
 <?php
 /**
- * Theme options.
- *
- * WARNING: This file is a core part of the
- * Anva WordPress Framework. It is advised
- * that any edits to the way this file displays its
- * content be done with via hooks, and filters.
- *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        https://anthuanvasquez.net
- * @package     Anva WordPress Framework
- */
-
-/**
  * Styles options.
  *
+ * @package AnvaFramework
+ */
+
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Styles options tab.
+ *
  * @since  1.0.0
- * @return array $styles Options for styles tab.
+ * @return array $styles Options array.
  */
 function anva_theme_options_styles() {
 
@@ -119,7 +115,7 @@ function anva_theme_options_styles() {
 			),
 			'top_bar_text_color' => array(
 				'name' => null,
-				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Topbar Text' ), esc_html__( 'Use light text color for background.', 'anva' ) ),
+				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Topbar Text', 'anva' ), esc_html__( 'Use light text color for background.', 'anva' ) ),
 				'id' => 'top_bar_text_color',
 				'std' => '0',
 				'type' => 'checkbox',
@@ -565,7 +561,7 @@ function anva_theme_options_styles() {
 			),
 			'custom_css_stylesheet' => array(
 				'name' => null,
-				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Stylesheet' ), esc_html__( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ) ),
+				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Stylesheet', 'anva' ), esc_html__( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ) ),
 				'id' => 'custom_css_stylesheet',
 				'std' => '0',
 				'type' => 'checkbox',
