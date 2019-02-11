@@ -1,48 +1,132 @@
 <?xml version="1.0"?>
-<ruleset name="phpmd.xml"
-         xmlns="http://pmd.sf.net/ruleset/1.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
-    <description>PHPMD Ruleset for a WordPress Theme</description>
-    <rule ref="rulesets/cleancode.xml/BooleanArgumentFlag" />
-    <rule ref="rulesets/cleancode.xml/ElseExpression" />
-    <rule ref="rulesets/cleancode.xml/StaticAccess" />
-    <!-- Temporarily disabled as PHPMD seems to have a bug for this rule -->
-    <!-- <rule ref="rulesets/cleancode.xml/NestedScopes" /> -->
-    <rule ref="rulesets/codesize.xml/CyclomaticComplexity" />
-    <rule ref="rulesets/codesize.xml/NPathComplexity" />
-    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength" />
-    <rule ref="rulesets/codesize.xml/ExcessiveClassLength" />
-    <rule ref="rulesets/codesize.xml/ExcessiveParameterList" />
-    <rule ref="rulesets/codesize.xml/ExcessivePublicCount" />
-    <rule ref="rulesets/codesize.xml/TooManyFields" />
-    <rule ref="rulesets/codesize.xml/TooManyMethods" />
-    <rule ref="rulesets/codesize.xml/ExcessiveClassComplexity" />
-    <!-- Too controversial! -->
-    <!-- <rule ref="rulesets/controversial.xml/Superglobals" /> -->
-    <rule ref="rulesets/design.xml/ExitExpression" />
-    <rule ref="rulesets/design.xml/EvalExpression" />
-    <rule ref="rulesets/design.xml/GotoStatement" />
-    <rule ref="rulesets/design.xml/NumberOfChildren" />
-    <rule ref="rulesets/design.xml/DepthOfInheritance" />
-    <rule ref="rulesets/design.xml/CouplingBetweenObjects" />
-    <rule ref="rulesets/naming.xml/ShortVariable" />
-    <rule ref="rulesets/naming.xml/LongVariable">
-        <properties>
-            <property name="maximum" value="35" />
-        </properties>
-    </rule>
-    <rule ref="rulesets/naming.xml/ShortMethodName">
-        <properties>
-            <property name="minimum" value="2" />
-        </properties>
-    </rule>
-    <rule ref="rulesets/naming.xml/ConstructorWithNameAsEnclosingClass" />
-    <rule ref="rulesets/naming.xml/ConstantNamingConventions" />
-    <rule ref="rulesets/naming.xml/BooleanGetMethodName" />
-    <rule ref="rulesets/unusedcode.xml/UnusedPrivateField" />
-    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable" />
-    <rule ref="rulesets/unusedcode.xml/UnusedPrivateMethod" />
-    <rule ref="rulesets/unusedcode.xml/UnusedFormalParameter" />
+<ruleset name="WordPress Theme Coding Standards">
+	<!-- See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+	<!-- See https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards -->
+	<!-- See https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki -->
+	<!-- See https://github.com/wimg/PHPCompatibility -->
+
+	<!-- Set a description for this ruleset. -->
+	<description>A custom set of code standard rules to check for WordPress themes.</description>
+
+
+	<!--
+	#############################################################################
+	COMMAND LINE ARGUMENTS
+	https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+	#############################################################################
+	-->
+
+	<!-- Pass some flags to PHPCS:
+		 p flag: Show progress of the run.
+		 s flag: Show sniff codes in all reports.
+	-->
+	<arg value="ps"/>
+
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="./"/>
+
+	<!-- Check up to 8 files simultanously. -->
+	<arg name="parallel" value="8"/>
+
+	<!-- Only check the PHP, CSS and SCSS files. JS files are checked separately with JSCS and JSHint. -->
+	<arg name="extensions" value="php,css,scss/css"/>
+
+	<!-- Check all files in this directory and the directories below it. -->
+	<file>.</file>
+
+
+	<!--
+	#############################################################################
+	USE THE WordPress RULESET
+	#############################################################################
+	-->
+
+	<rule ref="WordPress"/>
+
+
+	<!--
+	#############################################################################
+	SNIFF SPECIFIC CONFIGURATION
+	#############################################################################
+	-->
+
+	<!-- Verify that the text_domain is set to the desired text-domain.
+		 Multiple valid text domains can be provided as a comma-delimited list. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="_s"/>
+		</properties>
+	</rule>
+
+	<!-- Allow for theme specific exceptions to the file name rules based
+		 on the theme hierarchy. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="is_theme" value="true"/>
+		</properties>
+	</rule>
+
+	<!-- Set the minimum supported WP version. This is used by several sniffs.
+		 The minimum version set here should be in line with the minimum WP version
+		 as set in the "Requires at least" tag in the readme.txt file. -->
+	<config name="minimum_supported_wp_version" value="4.5"/>
+
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<!-- No need to adjust alignment of large arrays when the item with the largest key is removed. -->
+			<property name="exact" value="false"/>
+			<!-- Don't align multi-line items if ALL items in the array are multi-line. -->
+			<property name="alignMultilineItems" value="!=100"/>
+			<!-- Array assignment operator should always be on the same line as the array key. -->
+			<property name="ignoreNewlines" value="false"/>
+		</properties>
+	</rule>
+
+	<!-- Verify that everything in the global namespace is prefixed with a theme specific prefix.
+		 Multiple valid prefixes can be provided as a comma-delimited list. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="_s" />
+		</properties>
+	</rule>
+
+
+	<!--
+	#############################################################################
+	USE THE PHPCompatibility RULESET
+	#############################################################################
+	-->
+
+
+	<config name="testVersion" value="5.2-99.0"/>
+	<rule ref="PHPCompatibility">
+		<!-- Whitelist PHP native classes, interfaces, functions and constants which
+			 are back-filled by WP.
+
+			 Based on:
+			 * /wp-includes/compat.php
+			 * /wp-includes/random_compat/random.php
+		-->
+		<exclude name="PHPCompatibility.PHP.NewClasses.errorFound"/>
+		<exclude name="PHPCompatibility.PHP.NewClasses.typeerrorFound"/>
+
+		<exclude name="PHPCompatibility.PHP.NewConstants.json_pretty_printFound"/>
+		<exclude name="PHPCompatibility.PHP.NewConstants.php_version_idFound"/>
+
+		<exclude name="PHPCompatibility.PHP.NewFunctions.hash_equalsFound"/>
+		<exclude name="PHPCompatibility.PHP.NewFunctions.json_last_error_msgFound"/>
+		<exclude name="PHPCompatibility.PHP.NewFunctions.random_intFound"/>
+		<exclude name="PHPCompatibility.PHP.NewFunctions.random_bytesFound"/>
+		<exclude name="PHPCompatibility.PHP.NewFunctions.array_replace_recursiveFound"/>
+
+		<exclude name="PHPCompatibility.PHP.NewInterfaces.jsonserializableFound"/>
+	</rule>
+
+	<!-- Whitelist the WP Core mysql_to_rfc3339() function. -->
+	<rule ref="PHPCompatibility.PHP.RemovedExtensions">
+		<properties>
+			<property name="functionWhitelist" type="array" value="mysql_to_rfc3339"/>
+		</properties>
+	</rule>
+
 </ruleset>

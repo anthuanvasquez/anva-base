@@ -27,18 +27,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes( 'html' ); ?>>
 <head <?php anva_attr( 'head' ); ?>>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<?php
 		/**
 		 * Head not hooked by default.
 		 */
 		do_action( 'anva_wp_head' );
-	?>
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<?php
+
 		/**
 		 * Required hooked by WordPress.
 		 */

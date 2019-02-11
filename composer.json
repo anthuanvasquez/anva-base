@@ -12,7 +12,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/anthuanvasquez/anva-base/issues"
+        "issues": "https://gitlab.com/anthuanvasquez/anva-base/issues"
     },
     "autoload": {
         "classmap": ["framework/anva.php"]
